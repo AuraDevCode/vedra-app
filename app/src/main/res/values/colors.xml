@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vedra_background">#FF0A0A0A</color>
+    <color name="vedra_icon_start">#FFA13BFF</color>
+    <color name="vedra_icon_mid">#FF6A3DF0</color>
+    <color name="vedra_icon_end">#FF00C8E0</color>
+</resources>

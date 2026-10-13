@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="guard_service_label">Vedra</string>
+    <string name="guard_service_summary">Bloqueia os apps que você escolheu no Vedra.</string>
+    <string name="guard_service_description">O Vedra usa este serviço só para saber qual app abriu e cobrir a tela antes de pedir seu PIN ou digital. Ele não lê mensagens, textos, fotos, senhas nem nenhum conteúdo da tela. Nada é guardado ou enviado: o Vedra não tem acesso à internet.</string>
+</resources>

@@ -2,7 +2,7 @@
 
 Cada fase termina com algo **instalável no Samsung** e um critério de pronto verificável.
 
-## F0 · Fundação
+## F0 · Fundação ✅ (13/10/2026) · pendente: CI, ktlint e detekt
 
 - Projeto Gradle multimódulo (`app`, `core`, `data`, `guard`), version catalog, ktlint, detekt e CI.
 - Tema Compose da marca (cores, tipografia, formas), ícone adaptativo e splash.
@@ -10,7 +10,9 @@ Cada fase termina com algo **instalável no Samsung** e um critério de pronto v
 
 **Pronto quando:** o CI está verde, o APK de depuração instala no Samsung e abre com a marca Vedra.
 
-## F1 · Prova do bloqueio (o maior risco primeiro)
+## F1 · Prova do bloqueio (o maior risco primeiro) ✅ no emulador · ⏳ S20
+
+> Já entregue além do previsto: PIN real com hash, digital, lista de apps, regra de rebloqueio e painel de saúde (adiantando parte da F2).
 
 - `VedraAccessibilityService` + `CurtainController` + `LockActivity` só com o PIN fixo de teste.
 - Lista de protegidos fixa no código (WhatsApp).

@@ -61,3 +61,21 @@ Formato: contexto → decisão → consequências. Status: ✅ aceita · 🟡 pr
 
 **Decisão:** quatro módulos. `core` é Kotlin puro, para testar as regras sem Android.
 **Consequências:** builds incrementais e regras isoladas. Não criar módulos por feature enquanto o app for pequeno.
+
+## ADR-012 · Janelas do próprio Vedra nunca mudam o app em primeiro plano ✅
+
+**Contexto:** no teste no emulador (API 36), o evento da `LockActivity` chegou com `className = android.widget.FrameLayout`, e não com o nome da Activity. Com isso, a regra de saída fechava o desafio.
+**Decisão:** qualquer evento do próprio pacote é ignorado pelo `LockEngine`. A cortina sai quando a `LockActivity` avisa que desenhou (`GuardStatus.onLockScreenShown`), não pelo evento.
+**Consequências:** ir de um app protegido para o próprio Vedra não conta como saída. É aceitável, porque o Vedra também pede o PIN para abrir.
+
+## ADR-013 · Cortina pré-anexada ✅
+
+**Contexto:** `addView` a cada bloqueio levava de 8 a 70 ms no emulador (criação de superfície).
+**Decisão:** a janela da cortina é anexada quando o serviço conecta, com `alpha = 0` e `FLAG_NOT_TOUCHABLE`. Mostrar e esconder é só `updateViewLayout`.
+**Consequências:** 1 a 13 ms no emulador. A janela invisível fica sempre anexada (custo de memória pequeno).
+
+## ADR-014 · DataStore Preferences em vez de Proto ✅
+
+**Contexto:** os dados são poucos e simples. O Proto exige o plugin do protobuf e geração de código.
+**Decisão:** `datastore-preferences`, com dois arquivos: `vedra_settings` e `vedra_credential`.
+**Consequências:** menos configuração de build. O esquema de [04](04-arquitetura.md) continua valendo como modelo lógico.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Vedra" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/vedra_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Tela de bloqueio: sem animação de entrada ou saída, fundo opaco desde o primeiro quadro. -->
+    <style name="Theme.Vedra.Lock">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

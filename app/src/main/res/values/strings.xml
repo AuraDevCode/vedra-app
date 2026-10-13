@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vedra</string>
+    <string name="slogan">Seus apps, só para você.</string>
+
+    <!-- Primeiro uso -->
+    <string name="welcome_title">Bem-vindo ao Vedra</string>
+    <string name="welcome_point_fast">Bloqueio instantâneo, sem mostrar o conteúdo antes.</string>
+    <string name="welcome_point_private">Sem internet, sem conta, sem anúncios.</string>
+    <string name="welcome_point_simple">PIN ou digital, do seu jeito.</string>
+    <string name="welcome_start">Começar</string>
+    <string name="setup_create_pin">Crie seu PIN</string>
+    <string name="setup_create_pin_hint">De %1$d a %2$d dígitos. Ele abre os apps protegidos e o próprio Vedra.</string>
+    <string name="setup_confirm_pin">Confirme o PIN</string>
+    <string name="setup_pin_mismatch">Os PINs não são iguais. Tente de novo.</string>
+    <string name="setup_pin_weak">Esse PIN é fácil de adivinhar. Quer usar mesmo assim?</string>
+    <string name="setup_pin_weak_use">Usar mesmo assim</string>
+    <string name="setup_pin_weak_change">Escolher outro</string>
+    <string name="setup_pin_length">%1$d dígitos</string>
+    <string name="setup_no_recovery">Não existe recuperação por e-mail. Se esquecer o PIN, só a digital permite criar um novo.</string>
+    <string name="setup_biometric_title">Desbloquear com a digital?</string>
+    <string name="setup_biometric_body">Mais rápido no dia a dia. O PIN continua funcionando sempre.</string>
+    <string name="setup_biometric_use">Usar digital</string>
+    <string name="setup_biometric_skip">Agora não</string>
+    <string name="setup_biometric_unavailable">Cadastre uma digital nas configurações do Android para usar este recurso.</string>
+
+    <!-- Aviso de acessibilidade (obrigatório pela Play, specs/07) -->
+    <string name="disclosure_title">Por que o Vedra usa a Acessibilidade</string>
+    <string name="disclosure_body">Para bloquear um app no instante em que ele abre, o Vedra precisa saber qual app está na tela. O Android só oferece isso de forma imediata pelo serviço de Acessibilidade.</string>
+    <string name="disclosure_sees">O que o Vedra vê: apenas o nome do app que abriu (ex.: \"WhatsApp\").</string>
+    <string name="disclosure_not_sees">O que o Vedra não vê: mensagens, textos, fotos, senhas, toques ou qualquer conteúdo da tela.</string>
+    <string name="disclosure_storage">O que é guardado ou enviado: nada. O Vedra não tem acesso à internet.</string>
+    <string name="disclosure_off">Você pode desligar quando quiser em Configurações → Acessibilidade.</string>
+    <string name="disclosure_accept">Concordo e continuar</string>
+    <string name="disclosure_decline">Agora não</string>
+
+    <!-- Início -->
+    <string name="status_protected">Protegido</string>
+    <string name="status_attention">Atenção</string>
+    <string name="status_unprotected">Desprotegido</string>
+    <plurals name="status_apps_count">
+        <item quantity="one">%d app protegido</item>
+        <item quantity="other">%d apps protegidos</item>
+    </plurals>
+    <string name="check_service_ok">Acessibilidade ativa</string>
+    <string name="check_service_off">Acessibilidade desligada</string>
+    <string name="check_service_stuck">Acessibilidade ligada, mas o serviço não está rodando. Desligue e ligue de novo.</string>
+    <string name="check_battery_ok">Bateria sem restrições</string>
+    <string name="check_battery_off">Bateria otimizada: o sistema pode suspender o Vedra</string>
+    <string name="check_bg_restricted">Uso em segundo plano restrito</string>
+    <string name="check_apps_none">Nenhum app protegido ainda</string>
+    <string name="check_restricted_settings">Se o botão estiver cinza: Configurações → Apps → Vedra → ⋮ → Permitir configurações restritas.</string>
+    <string name="fix">Corrigir</string>
+    <string name="last_lock">Último bloqueio: %1$s · cortina em %2$s</string>
+    <string name="manage_apps">Gerenciar apps</string>
+    <string name="settings">Configurações</string>
+
+    <!-- Apps -->
+    <string name="apps_title">Apps protegidos</string>
+    <string name="apps_search">Buscar app</string>
+    <string name="apps_suggested">Sugeridos</string>
+    <string name="apps_all">Todos os apps</string>
+
+    <!-- Configurações -->
+    <string name="settings_relock">Pedir de novo</string>
+    <string name="relock_immediate">Imediatamente ao sair do app</string>
+    <string name="relock_after">Depois de %s fora do app</string>
+    <string name="relock_screen_off">Só quando a tela apagar</string>
+    <string name="settings_biometric">Desbloquear com a digital</string>
+    <string name="settings_change_pin">Trocar PIN</string>
+    <string name="settings_about">Versão %s</string>
+    <string name="duration_seconds">%d s</string>
+    <string name="duration_minutes">%d min</string>
+
+    <!-- Tela de bloqueio -->
+    <string name="lock_enter_pin">Digite seu PIN</string>
+    <string name="lock_wrong_pin">PIN incorreto</string>
+    <string name="lock_wait">Muitas tentativas. Tente em %s</string>
+    <string name="lock_forgot">Esqueci o PIN</string>
+    <string name="lock_forgot_body">Use a digital para criar um PIN novo. Sem a digital, não há como recuperar.</string>
+    <string name="lock_bio_invalidated">Uma nova digital foi cadastrada no aparelho. Por segurança, digite seu PIN.</string>
+    <string name="biometric_title">Desbloquear %s</string>
+    <string name="biometric_title_vedra">Abrir o Vedra</string>
+    <string name="biometric_negative">Usar PIN</string>
+    <string name="key_delete">Apagar</string>
+    <string name="key_biometric">Usar digital</string>
+    <string name="pin_progress">%1$d de %2$d dígitos</string>
+    <string name="back">Voltar</string>
+    <string name="ok">Ok</string>
+</resources>

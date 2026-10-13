@@ -11,11 +11,15 @@
 | Desempenho | Macrobenchmark + log local | RNF-01 a RNF-06 | Metas de [03](03-requisitos-nao-funcionais.md) |
 | Manual | Roteiro abaixo | Samsung real, casos de borda | Antes de cada versão |
 
+## Build de depuração e `FLAG_SECURE`
+
+No build de depuração (`br.com.auradevcode.vedra.dev`), o `FLAG_SECURE` fica **desligado** nas telas e na cortina, senão capturas e gravações saem pretas. O release sempre liga (RNF-18).
+
 ## Como provar que "nada aparece antes" (RNF-02)
 
 1. Ativar "Mostrar toques" e gravar a tela a 60 fps (`adb shell screenrecord --bit-rate 20M` ou o gravador do Samsung).
 2. Abrir o app protegido 20 vezes por caminhos diferentes (ícone, recentes, notificação, compartilhar).
-3. Script `tools/frame-audit.py` (ffmpeg): extrai os quadros entre o toque e a cortina e marca qualquer quadro que **não** seja launcher, animação do sistema ou cortina (comparação por histograma com uma referência da cortina).
+3. `python tools/frame-audit.py gravacao.mp4 folha.png` (OpenCV): lista cada quadro com brilho e fração escura e monta uma folha de contato para conferir que só aparecem launcher → cortina → tela de PIN.
 4. **Critério:** 0 quadros com conteúdo do app protegido em 20 de 20 aberturas.
 
 ## Matriz de casos (manual, Samsung)
@@ -57,10 +61,10 @@
 
 | Prioridade | Aparelho | Por quê |
 |---|---|---|
-| 1 | Samsung do Wander | Uso real (modelo e One UI: ver [13](13-duvidas-em-aberto.md)) |
-| 2 | Emulador Pixel com API 36 e API 26 | Limites da faixa suportada |
-| 3 | Emulador com API 33 | Configurações restritas e permissão de notificações |
-| 4 | Outro Samsung mais antigo ou Motorola (se houver) | Variação de fabricante |
+| 1 | Emulador `finora_test` (Pixel 6, API 36) | Primeiro ciclo de testes, sem depender do aparelho |
+| 2 | **Galaxy S20** (depuração USB) | Primeiro Samsung real: One UI, suspensão, teclado Samsung, gravação a 60 fps |
+| 3 | **Galaxy S22 Ultra** (uso diário, sem depuração) | Teste de 7 dias com APK instalado manualmente |
+| 4 | Emulador com API 26 | Limite inferior da faixa suportada |
 
 ## CI (GitHub Actions)
 
@@ -80,3 +84,19 @@ Em tag `v*`: `bundleRelease` assinado (segredos do GitHub), anexado à release. 
 - CI verde.
 - Textos em `strings.xml`.
 - Testado no Samsung quando tocar no serviço, na cortina ou na tela de bloqueio.
+
+## Resultados
+
+### 13/10/2026 · Emulador Pixel 6, API 36, build de depuração
+
+| Caso | Resultado |
+|---|---|
+| T1 abrir pelo ícone (frio e quente) | ✅ 0 quadros vazados em gravação (launcher → cortina → PIN) |
+| T7 rebloqueio imediato | ✅ |
+| T9 apagar e acender a tela | ✅ volta bloqueado |
+| T20 Voltar na tela de bloqueio | ✅ vai para o Início e continua bloqueado |
+| PIN errado e certo | ✅ |
+| RNF-01 cortina | 1,3 a 13 ms (`updateViewLayout`). Precisa ser medido no S20 |
+| RNF-03 toque → PIN | ⚠️ ~700 ms no emulador em depuração (Compose em debug é lento). Medir em release no S20 |
+
+**Bug encontrado e corrigido:** neste Android, o evento da janela da `LockActivity` chega com `className = FrameLayout`. O serviço achava que o usuário tinha saído para o Vedra e fechava o desafio. Agora toda janela do próprio pacote é passageira (ADR-012).

@@ -2,14 +2,6 @@
 
 Respostas do Wander atualizam este arquivo e, quando for o caso, viram ADR em [12](12-decisoes.md).
 
-## Bloqueiam o início da implementação
-
-| # | Pergunta | Por que importa | Proposta |
-|---|---|---|---|
-| D1 | Qual é o **modelo do Samsung** e a **versão do One UI / Android**? (Configurações → Sobre o telefone → Informações do software) | Define o alvo dos testes, os deep links da bateria e o comportamento de suspensão | — |
-| D2 | **Android Studio** está instalado? (o SDK 36 e o JDK 21 já estão nesta máquina) | Para abrir o projeto e depurar. Com o CLI dá para compilar e instalar mesmo sem ele | Instalar a versão estável |
-| D3 | O Samsung pode ficar com a **depuração USB** ligada durante o desenvolvimento? | Instalar e testar com `adb` direto deste PC | Sim, só durante o desenvolvimento |
-
 ## Produto
 
 | # | Pergunta | Proposta |
@@ -41,3 +33,5 @@ Respostas do Wander atualizam este arquivo e, quando for o caso, viram ADR em [1
 | R4 | Internet | Zero | 13/10/2026 |
 | R5 | Linguagem | Kotlin nativo | 13/10/2026 |
 | R6 | Repositório | GitHub `AuraDevCode`, privado | 13/10/2026 |
+| R7 | Aparelhos | **Galaxy S22 Ultra** é o aparelho de uso (sem depuração USB). **Galaxy S20** para testes com depuração USB. Ordem: emulador → S20 (APK de depuração) → S22 Ultra | 13/10/2026 |
+| R8 | Android Studio | Não é necessário: build e testes pela linha de comando com o SDK e o JDK já instalados | 13/10/2026 |
