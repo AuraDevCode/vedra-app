@@ -1,0 +1,32 @@
+# Gradle / Android
+.gradle/
+build/
+/local.properties
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+output-metadata.json
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.kotlin/
+
+# Assinatura (nunca versionar)
+*.jks
+*.keystore
+keystore.properties
+.credentials.json
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Diagnóstico e gravações de teste
+*.log
+tools/recordings/
