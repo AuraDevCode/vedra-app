@@ -14,8 +14,8 @@ App Android (Kotlin + Compose) que bloqueia outros apps com PIN ou digital. A es
 
 ## Ambiente desta máquina
 
-- JDK: `C:/Users/aquin/AppData/Local/Android/jdk` (Temurin 21)
-- SDK: `C:/Users/aquin/AppData/Local/Android/Sdk` (platform 36, build-tools 36.0.0)
+- JDK: `%LOCALAPPDATA%/Android/jdk` (Temurin 21)
+- SDK: `%LOCALAPPDATA%/Android/Sdk` (platform 36, build-tools 36.0.0)
 - adb: `$ANDROID_HOME/platform-tools/adb`
 
 ## Aparelho principal
