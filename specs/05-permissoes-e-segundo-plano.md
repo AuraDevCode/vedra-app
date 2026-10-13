@@ -65,6 +65,18 @@ Tentar na ordem e usar o primeiro que `resolveActivity()` encontrar:
    - **WorkManager** periódico de 15 min (o mínimo do sistema, custo desprezível) verifica P1a e P1b e posta a mesma notificação se algo estiver errado. É a rede de segurança para quando o processo foi morto sem `onUnbind()`.
 4. **Plano B, se os testes no Samsung mostrarem que o serviço é morto:** adicionar um *foreground service* `specialUse` com notificação discreta "Proteção ativa", ligado nas configurações. Exige justificativa na Play. Só entra se o teste de 7 dias falhar (ver ADR-006).
 
+## Instalação por APK: Play Protect
+
+Constatado em 13/10/2026 no Samsung: o **Play Protect bloqueia a instalação** do APK baixado (navegador, WhatsApp, gerenciador de arquivos) com a mensagem de que o app "pede permissões demais". É a proteção antifraude do Google, ativa no Brasil, que barra apps de fora da loja que declaram **serviço de acessibilidade**.
+
+| Caminho | Funciona? | Observação |
+|---|---|---|
+| `adb install` (cabo USB) | ✅ | A proteção não vale para o adb |
+| Desligar "Verificar apps com o Play Protect" só durante a instalação | ✅ | Religar logo depois. O app continua funcionando |
+| Teste interno da Play Store | ✅ | Solução definitiva: sem bloqueio e sem "configurações restritas" |
+
+Por isso, a distribuição para aparelhos sem cabo deve ir para o **teste interno da Play** o quanto antes (antecipar parte da F4).
+
 ## Particularidades da Samsung (One UI)
 
 | Tema | O que fazer |
