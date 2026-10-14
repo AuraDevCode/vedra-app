@@ -48,6 +48,7 @@ No build de depuração (`br.com.auradevcode.vedra.dev`), o `FLAG_SECURE` fica *
 | T20 | Botão Voltar na tela de bloqueio | Vai para o Início, e o app continua bloqueado |
 | T21 | Abrir a câmera de dentro do WhatsApp e voltar | Continua liberado (regra de saída P1) |
 | T22 | Ligação recebida com o WhatsApp bloqueado aberto | A ligação aparece normalmente. Depois, volta ao bloqueio |
+| T23 | Vídeo (TikTok, YouTube) parado na tela sem tocar, além do tempo de apagar a tela | A tela **não** apaga. No build de depuração: abrir `KeepScreenOnTestActivity` e conferir `dumpsys window \| grep mHoldScreenWindow` |
 
 ## Teste de resistência (critério da fase 2)
 
@@ -100,3 +101,10 @@ Em tag `v*`: `bundleRelease` assinado (segredos do GitHub), anexado à release. 
 | RNF-03 toque → PIN | ⚠️ ~700 ms no emulador em depuração (Compose em debug é lento). Medir em release no S20 |
 
 **Bug encontrado e corrigido:** neste Android, o evento da janela da `LockActivity` chega com `className = FrameLayout`. O serviço achava que o usuário tinha saído para o Vedra e fechava o desafio. Agora toda janela do próprio pacote é passageira (ADR-012).
+
+### 14/10/2026 · Samsung do Wander (APK de depuração)
+
+| Caso | Resultado |
+|---|---|
+| Bloqueio funcionando | ✅ |
+| **T23 tela apagando durante vídeo (TikTok)** | ❌ → corrigido. A cortina invisível era `OPAQUE` e anulava o "manter tela acesa" dos outros apps. Agora é `TRANSLUCENT`. No emulador, `mHoldScreenWindow` voltou a apontar para a tela de teste com o serviço ligado, e a gravação seguiu com 0 quadros vazados |

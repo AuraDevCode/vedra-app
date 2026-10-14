@@ -73,6 +73,7 @@ Formato: contexto → decisão → consequências. Status: ✅ aceita · 🟡 pr
 **Contexto:** `addView` a cada bloqueio levava de 8 a 70 ms no emulador (criação de superfície).
 **Decisão:** a janela da cortina é anexada quando o serviço conecta, com `alpha = 0` e `FLAG_NOT_TOUCHABLE`. Mostrar e esconder é só `updateViewLayout`.
 **Consequências:** 1 a 13 ms no emulador. A janela invisível fica sempre anexada (custo de memória pequeno).
+**Correção (14/10/2026):** a janela precisa ser `PixelFormat.TRANSLUCENT`. Com `OPAQUE`, mesmo invisível, o sistema considerava todos os apps embaixo cobertos e ignorava o `FLAG_KEEP_SCREEN_ON` deles: **a tela apagava no meio de vídeos** (relatado pelo Wander no TikTok). Teste de regressão: T23.
 
 ## ADR-014 · DataStore Preferences em vez de Proto ✅
 

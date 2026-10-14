@@ -40,7 +40,10 @@ internal class CurtainController(service: AccessibilityService, secure: Boolean)
         WindowManager.LayoutParams.MATCH_PARENT,
         WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
         hiddenFlags,
-        PixelFormat.OPAQUE,
+        // TRANSLUCENT, nunca OPAQUE: uma janela opaca do tamanho da tela, mesmo com alpha 0,
+        // faz o sistema achar que tudo embaixo está coberto e ignorar o FLAG_KEEP_SCREEN_ON
+        // dos outros apps (a tela apagava no meio de vídeos). O fundo da view já é opaco.
+        PixelFormat.TRANSLUCENT,
     ).apply {
         alpha = 0f
         windowAnimations = 0
