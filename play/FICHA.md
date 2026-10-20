@@ -1,5 +1,11 @@
 # Vedra · Play Console (teste fechado)
 
+> **Status (20/10/2026):** enviado para revisão do Google. Teste fechado "Alpha", versão 0.1.8 (versionCode 8), Brasil, testadores = lista "Finora - Wander".
+> App no Console: `developers/4776757094705934860/app/4973697798366956468`.
+> Vídeo da declaração de acessibilidade: https://auradevcode.github.io/vedra-app/demo-acessibilidade.mp4
+> Contato público da ficha: aquinowander3@gmail.com · site https://auradevcode.com.br (trocar por um e-mail da AuraDev antes da produção, se quiser).
+> "Detalhes do login": **Sim**, com instruções em inglês (o revisor cria o próprio PIN). Responder "Não" fez a verificação automática acusar erro.
+
 Tudo o que vai para o Play Console, pronto para colar. Contexto e políticas em [`specs/09`](../specs/09-play-store-e-conformidade.md).
 
 ## App
