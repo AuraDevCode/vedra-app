@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vedra · Privacy policy</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0A0A0A; color: #E8E8E8; font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  header img { width: 48px; height: 48px; }
+  h1 { font-size: 28px; margin: 0; }
+  h2 { font-size: 19px; margin: 32px 0 8px; color: #B07CFF; }
+  .muted { color: #9A9A9A; font-size: 14px; }
+  a { color: #00E5FF; }
+  ul { padding-left: 22px; }
+  .box { background: #141414; border: 1px solid #2A2A2A; border-radius: 14px; padding: 16px 18px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="../vedra-icon.svg" alt="">
+    <h1>Vedra privacy policy</h1>
+  </header>
+  <p class="muted">Effective October 20, 2026 · <a href="../privacidade/">Versão em português</a></p>
+
+  <div class="box">
+    <strong>Summary:</strong> Vedra does not collect, store off your device or share any personal data. The app has no internet permission.
+  </div>
+
+  <h2>Who we are</h2>
+  <p>Vedra is an Android app developed by AuraDev (<a href="https://auradevcode.com.br">auradevcode.com.br</a>). It locks the apps you choose with a PIN or fingerprint.</p>
+
+  <h2>Use of the Accessibility service</h2>
+  <p>To lock an app the instant it opens, Vedra uses the Android Accessibility API (AccessibilityService). Through it, Vedra receives <strong>only the package name of the app in the foreground</strong> (for example, <code>com.whatsapp</code>).</p>
+  <ul>
+    <li>Vedra <strong>does not read</strong> screen content, messages, text, photos, passwords, taps or typing.</li>
+    <li>The foreground app name is used only to decide whether that app should be locked. It is never sent anywhere.</li>
+    <li>Vedra does not use Accessibility to click, type or act in other apps.</li>
+    <li>You can turn the service off at any time in Settings → Accessibility.</li>
+  </ul>
+
+  <h2>Data stored on the device</h2>
+  <ul>
+    <li><strong>PIN:</strong> stored only as a cryptographic hash (PBKDF2 with an Android Keystore key that never leaves the device). The PIN itself is never stored.</li>
+    <li><strong>List of protected apps and settings</strong> (such as the relock rule).</li>
+    <li><strong>Wrong attempt count</strong>, for the security delay.</li>
+  </ul>
+  <p>This data lives only in the app's private storage, is excluded from cloud backup and is deleted when you uninstall Vedra or clear its data.</p>
+
+  <h2>Biometrics</h2>
+  <p>Fingerprints are verified by Android itself. Vedra never receives or stores your fingerprint; it only gets the result (success or failure) from the system.</p>
+
+  <h2>Installed apps list</h2>
+  <p>So you can choose what to protect, Vedra lists the apps that have a launcher icon. This list is used only on the device.</p>
+
+  <h2>Sharing and third parties</h2>
+  <p>Vedra has no ads, analytics, tracking or third-party libraries that collect data. Since it has no internet permission, it cannot send anything off the device.</p>
+
+  <h2>Children</h2>
+  <p>Vedra is not directed at children and collects no data from anyone.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version will be published on this page with an updated effective date.</p>
+
+  <h2>Contact</h2>
+  <p>AuraDev · <a href="https://auradevcode.com.br">auradevcode.com.br</a> · <a href="https://github.com/AuraDevCode/vedra-app/issues">github.com/AuraDevCode/vedra-app/issues</a></p>
+</main>
+</body>
+</html>

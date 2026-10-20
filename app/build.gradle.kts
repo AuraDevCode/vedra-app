@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -14,6 +15,12 @@ fun gitShortSha(): String = runCatching {
     providers.exec { commandLine("git", "rev-parse", "--short", "HEAD") }.standardOutput.asText.get().trim()
 }.getOrDefault("dev")
 
+/** Chave de upload da Play: `keystore.properties` na raiz (não versionado). Ver specs/09. */
+val keystoreProps = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
 android {
     namespace = "br.com.auradevcode.vedra"
     compileSdk = 36
@@ -26,6 +33,17 @@ android {
         versionName = "0.1.${gitCommitCount()}-${gitShortSha()}"
     }
 
+    signingConfigs {
+        if (keystoreProps.getProperty("storeFile") != null) {
+            create("upload") {
+                storeFile = file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".dev"
@@ -35,6 +53,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.findByName("upload")
         }
     }
 
