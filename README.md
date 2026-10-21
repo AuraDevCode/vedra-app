@@ -76,6 +76,8 @@ Requisitos: JDK 17+ e Android SDK (platform 36). O Android Studio é opcional.
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
+A política de privacidade está em [auradevcode.github.io/vedra-app/privacidade](https://auradevcode.github.io/vedra-app/privacidade/).
+
 Depois de instalar: abra o Vedra, crie o PIN e ative o serviço em **Configurações → Acessibilidade → Vedra**. Em APKs instalados fora da Play Store no Android 13+, talvez seja preciso liberar antes em **Configurações → Apps → Vedra → ⋮ → Permitir configurações restritas**.
 
 > No build de depuração, o `FLAG_SECURE` fica desligado para permitir capturas e gravações de teste. No release, ele está sempre ligado.
@@ -85,10 +87,10 @@ Depois de instalar: abra o Vedra, crie o PIN e ative o serviço em **Configuraç
 | Fase | Situação |
 |---|---|
 | F0 · Fundação | ✅ (CI, ktlint e detekt pendentes) |
-| F1 · Prova do bloqueio | ✅ no emulador, com 0 quadros vazados · ⏳ teste em Samsung real |
+| F1 · Prova do bloqueio | ✅ no emulador (0 quadros vazados) e no Samsung do Wander |
 | F2 · MVP pessoal | 🚧 em andamento |
 | F3 · Acabamento | — |
-| F4 · Play Store | — |
+| F4 · Play Store | 🚧 teste fechado (0.1.8) enviado para revisão em 20/10/2026 |
 
 Roadmap completo em [`specs/11-roadmap.md`](specs/11-roadmap.md).
 
