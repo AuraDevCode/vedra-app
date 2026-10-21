@@ -1,5 +1,7 @@
 # Vedra · Play Console (teste fechado)
 
+> **21/10/2026:** 0.1.8 aprovada e em uso. **0.1.12** (rebloqueio) + lista "primeiros" (5 testadores) enviadas para revisão.
+>
 > **Status (20/10/2026):** enviado para revisão do Google. Teste fechado "Alpha", versão 0.1.8 (versionCode 8), Brasil, testadores = lista "Finora - Wander".
 > App no Console: `developers/4776757094705934860/app/4973697798366956468`.
 > Vídeo da declaração de acessibilidade: https://auradevcode.github.io/vedra-app/demo-acessibilidade.mp4

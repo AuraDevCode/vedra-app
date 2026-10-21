@@ -26,6 +26,7 @@
 | 11 | [Roadmap](11-roadmap.md) | Fases, marcos e critério de pronto de cada fase |
 | 12 | [Decisões (ADR)](12-decisoes.md) | Decisões tomadas e por quê |
 | 13 | [Dúvidas em aberto](13-duvidas-em-aberto.md) | O que ainda depende do Wander |
+| 14 | [Plano de produção](14-plano-producao.md) | Critérios, v0.2, cronograma e lançamento gradual |
 
 ## Decisões já confirmadas pelo Wander (13/10/2026)
 
