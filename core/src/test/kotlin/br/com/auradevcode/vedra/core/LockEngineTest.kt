@@ -13,11 +13,14 @@ class LockEngineTest {
 
     private val whatsapp = "com.whatsapp"
     private val launcher = "com.sec.android.app.launcher"
+    private val chrome = "com.android.chrome"
 
     @BeforeEach
     fun setUp() {
         engine = LockEngine { now }
         engine.protectedPackages = setOf(whatsapp)
+        engine.launcherPackages = setOf(launcher)
+        engine.policy = RelockPolicy(RelockMode.IMMEDIATE)
     }
 
     @Test
@@ -46,11 +49,54 @@ class LockEngineTest {
     }
 
     @Test
-    fun `rebloqueio imediato pede de novo ao voltar`() {
+    fun `rebloqueio imediato pede de novo ao voltar de outro app`() {
+        engine.onForeground(whatsapp)
+        engine.onUnlocked(whatsapp)
+        engine.onForeground(chrome)
+        assertEquals(Decision.Lock(whatsapp), engine.onForeground(whatsapp))
+    }
+
+    @Test
+    fun `espiar os recentes e voltar rapido nao pede o PIN no modo imediato`() {
         engine.onForeground(whatsapp)
         engine.onUnlocked(whatsapp)
         engine.onForeground(launcher)
+        now += 3_000
+        assertEquals(Decision.Allow, engine.onForeground(whatsapp))
+    }
+
+    @Test
+    fun `ficar no launcher alem da tolerancia pede o PIN no modo imediato`() {
+        engine.onForeground(whatsapp)
+        engine.onUnlocked(whatsapp)
+        engine.onForeground(launcher)
+        now += LockEngine.QUICK_RETURN_MS + 1
         assertEquals(Decision.Lock(whatsapp), engine.onForeground(whatsapp))
+    }
+
+    @Test
+    fun `passar pelo launcher e abrir outro app encerra a tolerancia`() {
+        engine.onForeground(whatsapp)
+        engine.onUnlocked(whatsapp)
+        engine.onForeground(launcher)
+        engine.onForeground(chrome)
+        engine.onForeground(launcher)
+        now += 1_000
+        assertEquals(Decision.Lock(whatsapp), engine.onForeground(whatsapp))
+    }
+
+    @Test
+    fun `padrao e um minuto fora do app`() {
+        val fresh = LockEngine { now }
+        fresh.protectedPackages = setOf(whatsapp)
+        fresh.onForeground(whatsapp)
+        fresh.onUnlocked(whatsapp)
+        fresh.onForeground(chrome)
+        now += 50_000
+        assertEquals(Decision.Allow, fresh.onForeground(whatsapp))
+        fresh.onForeground(chrome)
+        now += 61_000
+        assertEquals(Decision.Lock(whatsapp), fresh.onForeground(whatsapp))
     }
 
     @Test
@@ -58,10 +104,10 @@ class LockEngineTest {
         engine.policy = RelockPolicy(RelockMode.AFTER_TIMEOUT, 60_000)
         engine.onForeground(whatsapp)
         engine.onUnlocked(whatsapp)
-        engine.onForeground(launcher)
+        engine.onForeground(chrome)
         now += 30_000
         assertEquals(Decision.Allow, engine.onForeground(whatsapp))
-        engine.onForeground(launcher)
+        engine.onForeground(chrome)
         now += 70_000
         assertEquals(Decision.Lock(whatsapp), engine.onForeground(whatsapp))
     }

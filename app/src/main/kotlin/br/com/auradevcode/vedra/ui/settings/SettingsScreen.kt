@@ -82,6 +82,13 @@ fun SettingsScreen(
                 }
             }
 
+            Text(
+                stringResource(R.string.relock_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
+            )
+
             HorizontalDivider(Modifier.padding(vertical = 12.dp))
 
             Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {

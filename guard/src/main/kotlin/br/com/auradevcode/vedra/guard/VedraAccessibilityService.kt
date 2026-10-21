@@ -34,6 +34,7 @@ class VedraAccessibilityService : AccessibilityService() {
         curtain = CurtainController(this, host.secureWindows).also { it.attach() }
         GuardStatus.hideCurtain = { curtain.hide() }
         transientPackages = BASE_TRANSIENT + inputMethodPackages()
+        host.lockEngine.launcherPackages = launcherPackages()
         registerReceiver(screenReceiver, IntentFilter(Intent.ACTION_SCREEN_OFF))
         GuardStatus.setRunning(true)
     }
@@ -96,6 +97,12 @@ class VedraAccessibilityService : AccessibilityService() {
         if (::curtain.isInitialized) runCatching { curtain.detach() }
         super.onDestroy()
     }
+
+    /** Launchers instalados: a tela de recentes costuma ser a mesma janela deles (ADR-015). */
+    private fun launcherPackages(): Set<String> = runCatching {
+        val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+        packageManager.queryIntentActivities(home, 0).map { it.activityInfo.packageName }.toSet()
+    }.getOrDefault(emptySet())
 
     private fun inputMethodPackages(): Set<String> = runCatching {
         getSystemService(InputMethodManager::class.java).enabledInputMethodList.map { it.packageName }.toSet()

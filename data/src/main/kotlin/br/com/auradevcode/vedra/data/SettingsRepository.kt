@@ -68,10 +68,9 @@ class SettingsRepository(context: Context) {
 
     private fun Preferences.toSettings() = VedraSettings(
         protectedPackages = this[PROTECTED].orEmpty(),
-        relock = RelockPolicy(
-            mode = this[RELOCK_MODE]?.let { runCatching { RelockMode.valueOf(it) }.getOrNull() } ?: RelockMode.IMMEDIATE,
-            timeoutMs = this[RELOCK_TIMEOUT] ?: 0,
-        ),
+        relock = this[RELOCK_MODE]?.let { runCatching { RelockMode.valueOf(it) }.getOrNull() }
+            ?.let { RelockPolicy(it, this[RELOCK_TIMEOUT] ?: 0) }
+            ?: RelockPolicy.Default,
         biometricEnabled = this[BIOMETRIC] ?: false,
         onboardingDone = this[ONBOARDING] ?: false,
         attempts = AttemptState(this[FAILURES] ?: 0, this[LOCKOUT_REMAINING] ?: 0),

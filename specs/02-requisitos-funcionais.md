@@ -62,8 +62,8 @@ Configuração **global**, com opção **por app** (P1):
 
 | Opção | Comportamento |
 |---|---|
-| **Imediato** (padrão) | Saiu do app, pede de novo ao voltar |
-| **Após 30 s / 1 / 5 / 15 / 30 min** | Fica liberado esse tempo depois de sair do app |
+| **Imediato** | Saiu do app, pede de novo ao voltar (com 5 s de tolerância só para recentes e Início, ADR-015) |
+| **Após 10 s / 30 s / 1 / 5 / 15 / 30 min** (padrão: **1 min**) | Fica liberado esse tempo depois de sair do app |
 | **Só ao apagar a tela** | Fica liberado até a tela apagar |
 
 - Apagar a tela **sempre** encerra todas as sessões, em qualquer opção.

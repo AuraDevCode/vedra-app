@@ -66,6 +66,7 @@
     <string name="relock_immediate">Imediatamente ao sair do app</string>
     <string name="relock_after">Depois de %s fora do app</string>
     <string name="relock_screen_off">Só quando a tela apagar</string>
+    <string name="relock_hint">Abrir os recentes ou a tela inicial e voltar ao mesmo app em até 5 s nunca pede o PIN. Apagar a tela sempre bloqueia tudo.</string>
     <string name="settings_biometric">Desbloquear com a digital</string>
     <string name="settings_change_pin">Trocar PIN</string>
     <string name="settings_about">Versão %s</string>

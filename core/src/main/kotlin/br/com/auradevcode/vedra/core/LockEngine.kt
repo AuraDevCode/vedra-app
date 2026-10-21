@@ -13,11 +13,21 @@ class LockEngine(private val clock: () -> Long) {
     @Volatile
     var protectedPackages: Set<String> = emptySet()
 
+    /**
+     * Launchers do aparelho. Na maioria dos Androids, a tela de recentes é a mesma janela do launcher,
+     * então não dá para distinguir "abriu os recentes" de "foi para o Início" (ADR-015).
+     */
+    @Volatile
+    var launcherPackages: Set<String> = emptySet()
+
     @Volatile
     var policy: RelockPolicy = RelockPolicy.Default
 
     /** Pacote -> momento em que o usuário saiu dele, ou [IN_FOREGROUND] enquanto está nele. */
     private val sessions = HashMap<String, Long>()
+
+    /** App protegido que o usuário deixou indo só até o launcher (recentes ou Início), sem abrir outro app. */
+    private var quickExit: String? = null
 
     @Volatile
     var foreground: String? = null
@@ -28,15 +38,26 @@ class LockEngine(private val clock: () -> Long) {
         if (transient) return Decision.Ignore
 
         val previous = foreground
-        if (previous != null && previous != packageName && sessions[previous] == IN_FOREGROUND) {
-            if (policy.mode == RelockMode.IMMEDIATE) sessions.remove(previous) else sessions[previous] = clock()
+        val toLauncher = packageName in launcherPackages
+        if (previous != packageName) {
+            if (previous != null && sessions[previous] == IN_FOREGROUND) {
+                sessions[previous] = clock()
+                quickExit = if (toLauncher) previous else null
+                if (!toLauncher && policy.mode == RelockMode.IMMEDIATE) sessions.remove(previous)
+            } else if (!toLauncher && packageName != quickExit) {
+                // Do launcher para outro app: a tolerância de volta rápida acaba aqui.
+                quickExit?.let { if (policy.mode == RelockMode.IMMEDIATE) sessions.remove(it) }
+                quickExit = null
+            }
         }
         foreground = packageName
 
         if (packageName !in protectedPackages) return Decision.Allow
 
         val leftAt = sessions[packageName]
-        if (leftAt != null && (leftAt == IN_FOREGROUND || withinGrace(leftAt))) {
+        val quickReturn = quickExit == packageName && leftAt != null && clock() - leftAt <= QUICK_RETURN_MS
+        if (packageName == quickExit) quickExit = null
+        if (leftAt != null && (leftAt == IN_FOREGROUND || quickReturn || withinGrace(leftAt))) {
             sessions[packageName] = IN_FOREGROUND
             return Decision.Allow
         }
@@ -59,11 +80,15 @@ class LockEngine(private val clock: () -> Long) {
     @Synchronized
     fun onScreenOff(): String? {
         sessions.clear()
+        quickExit = null
         return foreground?.takeIf { it in protectedPackages }
     }
 
     @Synchronized
-    fun lockAll() = sessions.clear()
+    fun lockAll() {
+        sessions.clear()
+        quickExit = null
+    }
 
     private fun withinGrace(leftAt: Long): Boolean = when (policy.mode) {
         RelockMode.IMMEDIATE -> false
@@ -71,7 +96,10 @@ class LockEngine(private val clock: () -> Long) {
         RelockMode.SCREEN_OFF -> true
     }
 
-    private companion object {
-        const val IN_FOREGROUND = Long.MIN_VALUE
+    companion object {
+        private const val IN_FOREGROUND = Long.MIN_VALUE
+
+        /** Espiar os recentes ou o Início e voltar ao mesmo app dentro deste tempo não pede o PIN. */
+        const val QUICK_RETURN_MS = 5_000L
     }
 }

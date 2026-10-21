@@ -80,3 +80,12 @@ Formato: contexto → decisão → consequências. Status: ✅ aceita · 🟡 pr
 **Contexto:** os dados são poucos e simples. O Proto exige o plugin do protobuf e geração de código.
 **Decisão:** `datastore-preferences`, com dois arquivos: `vedra_settings` e `vedra_credential`.
 **Consequências:** menos configuração de build. O esquema de [04](04-arquitetura.md) continua valendo como modelo lógico.
+
+## ADR-015 · Rebloqueio: padrão de 1 min e "volta rápida" pelo launcher ✅ (21/10/2026)
+
+**Contexto:** no uso real (Samsung do Wander, versão da Play), o padrão "Imediatamente" pedia o PIN só de abrir a tela de recentes ou de ir ao Início e voltar. Era chato no dia a dia. No Pixel (e na maioria dos launchers), a tela de recentes é a **mesma janela** do launcher, então não dá para separar "recentes" de "Início" pelo evento de acessibilidade.
+**Decisão:**
+1. Padrão novo: **"Depois de 1 min fora do app"**. Nova opção de **10 s**. "Imediatamente" continua disponível.
+2. **Volta rápida:** sair de um app protegido só até o launcher (recentes ou Início) e voltar ao **mesmo** app em até **5 s** não pede o PIN, em qualquer modo. Abrir outro app no meio encerra a tolerância.
+3. O serviço descobre os launchers com `ACTION_MAIN` + `CATEGORY_HOME` (visível via `<queries>`).
+**Consequências:** "Imediatamente" passa a ter 5 s de tolerância **só** para o launcher. Quem já escolheu um modo nas configurações mantém o seu; quem nunca mexeu passa para 1 min.

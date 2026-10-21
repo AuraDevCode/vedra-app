@@ -108,3 +108,12 @@ Em tag `v*`: `bundleRelease` assinado (segredos do GitHub), anexado à release. 
 |---|---|
 | Bloqueio funcionando | ✅ |
 | **T23 tela apagando durante vídeo (TikTok)** | ❌ → corrigido. A cortina invisível era `OPAQUE` e anulava o "manter tela acesa" dos outros apps. Agora é `TRANSLUCENT`. No emulador, `mHoldScreenWindow` voltou a apontar para a tela de teste com o serviço ligado, e a gravação seguiu com 0 quadros vazados |
+
+### 21/10/2026 · Rebloqueio (ADR-015), emulador Pixel 6 API 36
+
+| Caso | Resultado |
+|---|---|
+| Recentes → tocar no mesmo app | ✅ não pede o PIN |
+| Início por 8 s → voltar (padrão 1 min) | ✅ não pede o PIN |
+| Outro app por 65 s → voltar (padrão 1 min) | ✅ pede o PIN |
+| Unidade: volta rápida no modo imediato, tolerância expirada, launcher → outro app | ✅ (20 testes no `core`) |
